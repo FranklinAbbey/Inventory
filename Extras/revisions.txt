@@ -1,0 +1,186 @@
+commit 830b86669bec323658aa08a6f0e4efa427fec037
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Thu Apr 23 15:14:11 2020 -0400
+
+    Documentation updated
+    
+    All functions not defined in header file now labeled as 'static'
+
+commit 69814000dbfd6cca987969a70ec9da20f0099e20
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Thu Apr 23 14:49:44 2020 -0400
+
+    Fixed memory leak with 'clear' functionality
+
+commit deed956991d77b9231245f58416306d83015e89d
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Thu Apr 23 14:12:31 2020 -0400
+
+    Updated documentation
+
+commit fceaaa98d60746ed91ac062a18557058eef05f14
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Wed Apr 22 21:25:12 2020 -0400
+
+    All try tests successful
+
+commit ac779a4ed1f7fbf9d984ebb317d1f24119d3dfb9
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Wed Apr 22 21:05:46 2020 -0400
+
+    Changes made to the ordering of error checks:
+        - Making sure aseemblies are not created if an item in their list is not valid
+        - Adding a check for a positive quantity to be added to assemblies items_needed
+        - Minor error checking output fixes
+
+commit 5c900734bbd227d43e3c18b59d218649f9af3689
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Wed Apr 22 14:44:25 2020 -0400
+
+    All valgrind memory errors taken care of ('addItem() line 406):
+        - when adding an item that is already in an item list, needed to free the new item created because it is unused and not added to the list.
+
+commit 0f5c47087c87330699bf44700bdd2fb9a7e1690b
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Wed Apr 22 14:32:49 2020 -0400
+
+    All compare and to_array functions implemented:
+        - Quick sorting working
+        - Items printing in alphabetical order
+
+commit 6cba775adf42337fa84fbd4e1d4d3fda7c25fd7e
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Tue Apr 21 18:57:34 2020 -0400
+
+    fixed output discrepencies with 'fishing.txt' as input
+
+commit 06f7653e15b4483b787d3a9d85b6356a850c447c
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Tue Apr 21 11:21:04 2020 -0400
+
+    'restock' functionality implemented:
+        - 'restock()' function created to call 'stock()' function appropriately
+        - implementation works correctly
+
+commit e635810b8745ad708c5f987fdd81691d70090630
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Tue Apr 21 10:23:51 2020 -0400
+
+    implemented 'stock()' function:
+        - handles stock requests
+        - working properly
+
+commit 5e8b5840439284c70982e9db42cf29f7100d7d1e
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Sun Apr 19 06:00:51 2020 -0400
+
+    'fulfillOrder' functionality:
+        - working properly with nested assemblies
+        - working properly when there aren't enough of 'main' assembly or sub assembly
+
+commit 689827de74d23930079e9bd70406e7305d0f27dc
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Sun Apr 19 05:58:48 2020 -0400
+
+    'empty()' functionality implemented
+
+commit b39eecd5d21565f31389ce0f1ba554de03e12854
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Sun Apr 19 04:50:54 2020 -0400
+
+    'fulfillOrder' functionality works when there is enough of the Assembly on-hand
+
+commit 195ceb571850c9fa3bd26f44fcf7ae9ee3046050
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Sat Apr 18 19:38:44 2020 -0400
+
+    'make()', 'get()' functions implemented:
+        - Untested
+    
+    'fulfillOrder' functionality implemented:
+        - Untested
+
+commit 1d5c39ef3f8e2aa436ad3d555995e9906e76870f
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Fri Apr 17 17:26:28 2020 -0400
+
+    Adding Parts and Assemblies, along with freeing the inventory execute without
+    memory errors.
+
+commit c487214ad6f6318d1ab94eeda296f13c8bced511
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Fri Apr 17 15:03:48 2020 -0400
+
+    Updated 'free_inventory()' function
+    
+    Updated 'inventory' request to allow printing a single assembly
+
+commit 4a2eb5779d8825f374e054418c8c1be97d6c2a6a
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Fri Apr 17 12:20:54 2020 -0400
+
+    'addAssembly()' function:
+        - capacity is now accurate
+
+commit b97ab871c1486ebc11fa0823d52af97ed419d5e0
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Fri Apr 17 12:03:59 2020 -0400
+
+    'print_inventory()' function:
+        - implemented, getting incorrect capacities
+
+commit 20b5426b5deb7324b49c71521a5fd573d3e1b912
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Fri Apr 17 11:30:44 2020 -0400
+
+    'addAssembly()' fucntion:
+        - implemented and working properly
+
+commit 2b1d1fd0594bdda7b03609451aa201982bdd05a7
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Thu Apr 16 15:31:34 2020 -0400
+
+    All lookup functions implemented:
+        - Untested
+
+commit 608f0ed403f043a4cafc53316788ed07ea96f0d4
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Thu Apr 16 14:47:06 2020 -0400
+
+    'add_item()' function implemented
+        - used by 'addAssembly' portion of 'process_request()'
+        - complied, untested
+
+commit 3f73e5366899fb3ff236bfd09858eba1dc7b9e54
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Sun Apr 12 20:16:56 2020 -0400
+
+    'add_part()' function in 'inventory.c' working properly
+        - checks for duplicate part ID
+    
+    'print_parts()' function in 'inventory.c' working properly
+    
+    'process_request()' in 'inventory.c' error checking:
+        - Part IDs not starting with 'P'
+        - Unknown commands
+
+commit f6b6825a158b169a2e29f0de15d5c567f39456d1
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Fri Apr 10 20:48:34 2020 -0400
+
+    'add_part()' function written, untested
+
+commit e4f6a53c444e453c6840f9c2fde1c2338bcb7f74
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Tue Mar 17 15:15:52 2020 -0400
+
+    Request reading functionality in place in 'inventory.c':
+        - Reads from file or stdin
+        - gets rid of commented lines (inline or comepletely commented)
+        - extracts only request arguments
+
+commit d05bea0cab917a67d1ee71d3b808a4d8f652589a
+Author: Frank Abbey <fra1489@cs.rit.edu>
+Date:   Tue Mar 17 11:47:07 2020 -0400
+
+    Initial commit

@@ -1,0 +1,343 @@
+input.3
+=======
+parts      # NO PARTS
+inventory  # EMPTY INVENTORY
+
+expected output
+===============
++ parts
+Part inventory:
+---------------
+NO PARTS
++ inventory
+Assembly inventory:
+-------------------
+EMPTY INVENTORY
+
+*********************************
+
+input.4
+=======
+# add only parts
+addPart Penny
+addPart Piglet
+addPart Part
+addPart Pen
+parts
+
+expected output
+===============
++ addPart Penny
++ addPart Piglet
++ addPart Part
++ addPart Pen
++ parts
+Part inventory:
+---------------
+Part ID    
+===========
+Part       
+Pen        
+Penny      
+Piglet     
+
+*********************************
+
+input.5
+=======
+# only Assemblies
+addAssembly Argument 20
+addAssembly Ambivalent 10
+addAssembly Azure 30
+inventory
+parts
+
+expected output
+===============
++ addAssembly Argument 20
++ addAssembly Ambivalent 10
++ addAssembly Azure 30
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+Ambivalent        10       0*
+Argument          20       0*
+Azure             30       0*
++ parts
+Part inventory:
+---------------
+NO PARTS
+
+*********************************
+
+input.6
+=======
+# only Assemblies
+addAssembly Argument 20
+addAssembly Ambivalent 10
+addAssembly Azure 31
+stock Azure 50
+inventory
+empty Azure
+stock Azure 15
+inventory
+restock
+inventory
+
+expected output
+===============
++ addAssembly Argument 20
++ addAssembly Ambivalent 10
++ addAssembly Azure 31
++ stock Azure 50
+>>> make 31 units of assembly Azure
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+Ambivalent        10       0*
+Argument          20       0*
+Azure             31      31
++ empty Azure
++ stock Azure 15
+>>> make 15 units of assembly Azure
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+Ambivalent        10       0*
+Argument          20       0*
+Azure             31      15*
++ restock
+>>> restocking assembly Azure with 16 items
+>>> make 16 units of assembly Azure
+>>> restocking assembly Ambivalent with 10 items
+>>> make 10 units of assembly Ambivalent
+>>> restocking assembly Argument with 20 items
+>>> make 20 units of assembly Argument
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+Ambivalent        10      10
+Argument          20      20
+Azure             31      31
+
+*********************************
+
+input.7
+=======
+# error checks
+addPart QQQ                        # not a part ID
+addPart Participatory              # part ID too long
+addAssembly SSS 100                # not an assembly ID
+addAssembly Agricultural           # assembly ID too long
+addAssembly Annoying -5            # negative capacity
+addPart Part                       
+addPart Part                       # duplicate part ID
+addAssembly Albatross 10 QQQ 5     # QQQ not a part
+addAssembly Aardvark 20 Pup 3      # Pup not in part inventory
+addAssembly Ambivalent 30 Part 0   # Part has zero quantity
+addAssembly Anxious 40 Part -4     # Part has negative quantity
+addAssembly Appetite 10 Ask 3      # Ask not in assembly inventory
+addAssembly Arduous 0 
+addAssembly Arduous 11             # duplicate assembly ID
+restock Assumption                 # Assumption not in assembly inventory
+stock Advertise 15                 # Advertise not in assembly inventory
+stock Arduous 0                    # stock with zero quantity
+stock Arduous -5                   # stock with negative quantity
+fulfillOrder Part 8                # cannot order a part
+fulfillOrder Abstract 5            # Abstract not in assembly inventory
+fulfillOrder Arduous 0             # order with zero quantity
+fulfillOrder Arduous -11           # order with negative quantity
+empty Part                         # cannot empty a part
+empty Alexa                        # Alexa not in assembly inventory
+bork                               # illegal command
+
+expected output
+===============
++ addPart QQQ
+!!! QQQ: part ID must start with 'P'
++ addPart Participatory
+!!! Participatory: part ID too long
++ addAssembly SSS 100
+!!! SSS: assembly ID must start with 'A'
++ addAssembly Agricultural
+!!! Agricultural: assembly ID too long
++ addAssembly Annoying -5
+!!! -5: illegal capacity for ID Annoying
++ addPart Part
++ addPart Part
+!!! Part: duplicate part ID
++ addAssembly Albatross 10 QQQ 5
+!!! QQQ: part/assembly ID is not in the inventory
++ addAssembly Aardvark 20 Pup 3
+!!! Pup: part/assembly ID is not in the inventory
++ addAssembly Ambivalent 30 Part 0
+!!! 0: illegal quantity for ID Part
++ addAssembly Anxious 40 Part -4
+!!! -4: illegal quantity for ID Part
++ addAssembly Appetite 10 Ask 3
+!!! Ask: part/assembly ID is not in the inventory
++ addAssembly Arduous 0
++ addAssembly Arduous 11
+!!! Arduous: duplicate assembly ID
++ restock Assumption
+!!! Assumption: assembly ID is not in the inventory
++ stock Advertise 15
+!!! Advertise: assembly ID is not in the inventory
++ stock Arduous 0
+!!! 0: illegal quantity for ID Arduous
++ stock Arduous -5
+!!! -5: illegal quantity for ID Arduous
++ fulfillOrder Part 8
+!!! Part: assembly ID is not in the inventory -- order canceled
++ fulfillOrder Abstract 5
+!!! Abstract: assembly ID is not in the inventory -- order canceled
++ fulfillOrder Arduous 0
+!!! 0: illegal order quantity for ID Arduous -- order canceled
++ fulfillOrder Arduous -11
+!!! -11: illegal order quantity for ID Arduous -- order canceled
++ empty Part
+!!! Part: ID not an assembly
++ empty Alexa
+!!! Alexa: assembly ID is not in the inventory
++ bork
+!!! bork: unknown command
+
+*********************************
+
+input.8
+=======
+addPart P1
+addPart P0
+addAssembly AA 10 P1 5 P0 3 P1 8 # P1 appears twice -- combine the quantities
+inventory AA
+
+expected output
+===============
++ addPart P1
++ addPart P0
++ addAssembly AA 10 P1 5 P0 3 P1 8
++ inventory AA
+Assembly ID:  AA
+bin capacity: 10
+on hand:      0
+Parts list:
+-----------
+Part ID     quantity
+=========== ========
+P0                 3
+P1                13
+
+*********************************
+
+input.9
+=======
+addPart P1
+addPart P2
+addAssembly Ay 3 P1 2
+addAssembly Az 6 P1 3 P2 5
+addAssembly Ax 30 Ay 3 Az 4
+addAssembly Aw 5 Az 2 P1 3 Ax 4
+restock
+inventory
+fulfillOrder Aw 9
+inventory
+
+expected output
+===============
++ addPart P1
++ addPart P2
++ addAssembly Ay 3 P1 2
++ addAssembly Az 6 P1 3 P2 5
++ addAssembly Ax 30 Ay 3 Az 4
++ addAssembly Aw 5 Az 2 P1 3 Ax 4
++ restock
+>>> restocking assembly Aw with 5 items
+>>> make 5 units of assembly Aw
+>>> make 20 units of assembly Ax
+>>> make 80 units of assembly Az
+>>> make 60 units of assembly Ay
+>>> make 10 units of assembly Az
+>>> restocking assembly Ax with 30 items
+>>> make 30 units of assembly Ax
+>>> make 120 units of assembly Az
+>>> make 90 units of assembly Ay
+>>> restocking assembly Az with 6 items
+>>> make 6 units of assembly Az
+>>> restocking assembly Ay with 3 items
+>>> make 3 units of assembly Ay
+Parts needed:
+-------------
+Part ID     quantity
+=========== ========
+P1               969
+P2              1080
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+Aw                 5       5
+Ax                30      30
+Ay                 3       3
+Az                 6       6
++ fulfillOrder Aw 9
+>>> make 4 units of assembly Aw
+>>> make 2 units of assembly Az
+Parts needed:
+-------------
+Part ID     quantity
+=========== ========
+P1                18
+P2                10
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+Aw                 5       0*
+Ax                30      14*
+Ay                 3       3
+Az                 6       0*
+
+*********************************
+
+input.10
+========
+addPart P
+addAssembly A1 0 P 1
+addAssembly A2 0 A1 1
+addAssembly A3 0 A2 2
+addAssembly A4 0 A3 3
+addAssembly A5 0 A4 4
+addAssembly A6 0 A5 5
+fulfillOrder A6 6 # six factorial
+
+expected output
+===============
++ addPart P
++ addAssembly A1 0 P 1
++ addAssembly A2 0 A1 1
++ addAssembly A3 0 A2 2
++ addAssembly A4 0 A3 3
++ addAssembly A5 0 A4 4
++ addAssembly A6 0 A5 5
++ fulfillOrder A6 6
+>>> make 6 units of assembly A6
+>>> make 30 units of assembly A5
+>>> make 120 units of assembly A4
+>>> make 360 units of assembly A3
+>>> make 720 units of assembly A2
+>>> make 720 units of assembly A1
+Parts needed:
+-------------
+Part ID     quantity
+=========== ========
+P                720

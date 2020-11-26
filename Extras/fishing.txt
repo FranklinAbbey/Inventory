@@ -1,0 +1,149 @@
+#(Example output from the 'fishingRun.txt' file)
+fishing
+=======
+
+# Our store stocks and sells basic fishing equipment.
+# We assume that fishing rods and reels are "parts"
+# that are readily available from a local distributor.
+
+addPart P.rod                                 # fishing rod
+addPart P.reel                                # fishing reel
+
+# A fishing pole can be assembled from a rod and a reel.
+# Our store has a bin capable of holding up to 12 poles.
+
+addAssembly A.pole 12 P.rod 1 P.reel 1        # a fishing pole (rod+reel)
+
+# We call bait a "part", though there might be a better term for this.
+# We assume that bait is readily available to put into a tacklebox
+
+addPart P.bait                                # bait to fish with
+
+# A license is an "assembly". We are legally allowed
+# to have as many as 20 licenses on hand at any one time.
+
+addAssembly A.license 20                      # fishing licenses
+
+# We can assemble a tackle box using one spare reel and 20 baits.
+# We have a bin capable of holding up to 5 tackleboxes.
+
+addAssembly A.tacklebox 5 P.reel 1 P.bait 20  # holds a spare reel and bait
+
+# The term "tackle" refers to a set consisting of a tacklebox and a pole.
+# We have a bin capable of holding up to 4 tackle sets.
+
+addAssembly A.tackle 4 A.tacklebox 1 A.pole 1 # fishing equipment sets
+
+# First, we fill the bins (all of them start out empty).
+
+restock                                       # fill the bins
+
+# The output of this request shows how many assemblies have been
+# made to restock the bins, and how many "parts" were required to make them.
+# Let's look at our current inventory (no parts, just assemblies).
+# Everything should now be full!
+
+inventory
+
+# A customer arrives and asks to purchase 10 tackle sets and 10 licenses
+
+fulfillOrder A.tackle 10 A.license 10         # 10 tackle sets and 10 licenses
+
+# The output of this request shows how many assemblies have been
+# made to fulfill the order (first using any assemblies that are on hand)
+# and how many "parts" were required to make them.
+# What's left in our inventory after the order is fulfilled?
+
+inventory
+
+# Let's restock any bins that are getting low ...
+
+restock
+
+# ... and look at our current inventory.
+
+inventory
+
+# THIS FILE IS CALLED "fishing". TO 'RUN' THIS FILE, EXECUTE THE COMMAND
+#    ./inventory fishing
+
+expected output
+===============
+
++ addPart P.rod
++ addPart P.reel
++ addAssembly A.pole 12 P.rod 1 P.reel 1
++ addPart P.bait
++ addAssembly A.license 20
++ addAssembly A.tacklebox 5 P.reel 1 P.bait 20
++ addAssembly A.tackle 4 A.tacklebox 1 A.pole 1
++ restock
+>>> restocking assembly A.tackle with 4 items
+>>> make 4 units of assembly A.tackle
+>>> make 4 units of assembly A.pole
+>>> make 4 units of assembly A.tacklebox
+>>> restocking assembly A.tacklebox with 5 items
+>>> make 5 units of assembly A.tacklebox
+>>> restocking assembly A.license with 20 items
+>>> make 20 units of assembly A.license
+>>> restocking assembly A.pole with 12 items
+>>> make 12 units of assembly A.pole
+Parts needed:
+-------------
+Part ID     quantity
+=========== ========
+P.bait           180
+P.reel            25
+P.rod             16
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+A.license         20      20
+A.pole            12      12
+A.tackle           4       4
+A.tacklebox        5       5
++ fulfillOrder A.tackle 10 A.license 10
+>>> make 6 units of assembly A.tackle
+>>> make 1 units of assembly A.tacklebox
+Parts needed:
+-------------
+Part ID     quantity
+=========== ========
+P.bait            20
+P.reel             1
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+A.license         20      10
+A.pole            12       6
+A.tackle           4       0*
+A.tacklebox        5       0*
++ restock
+>>> restocking assembly A.tackle with 4 items
+>>> make 4 units of assembly A.tackle
+>>> make 4 units of assembly A.tacklebox
+>>> restocking assembly A.tacklebox with 5 items
+>>> make 5 units of assembly A.tacklebox
+>>> restocking assembly A.pole with 10 items
+>>> make 10 units of assembly A.pole
+Parts needed:
+-------------
+Part ID     quantity
+=========== ========
+P.bait           180
+P.reel            19
+P.rod             10
++ inventory
+Assembly inventory:
+-------------------
+Assembly ID Capacity On Hand
+=========== ======== =======
+A.license         20      10
+A.pole            12      12
+A.tackle           4       4
+A.tacklebox        5       5
+

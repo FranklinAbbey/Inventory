@@ -1,0 +1,26 @@
+# error checks
+addPart QQQ                        # not a part ID
+addPart Participatory              # part ID too long
+addAssembly SSS 100                # not an assembly ID
+addAssembly Agricultural 12        # assembly ID too long
+addAssembly Annoying -5            # negative capacity
+addPart Part
+addPart Part                       # duplicate part ID
+addAssembly Albatross 10 QQQ 5     # QQQ not a part
+addAssembly Aardvark 20 Pup 3      # Pup not in part inventory
+addAssembly Ambivalent 30 Part 0   # Part has zero quantity
+addAssembly Anxious 40 Part -4     # Part has negative quantity
+addAssembly Appetite 10 Ask 3      # Ask not in assembly inventory
+addAssembly Arduous 0
+addAssembly Arduous 11             # duplicate assembly ID
+restock Assumption                 # Assumption not in assembly inventory
+stock Advertise 15                 # Advertise not in assembly inventory
+stock Arduous 0                    # stock with zero quantity
+stock Arduous -5                   # stock with negative quantity
+fulfillOrder Part 8                # cannot order a part
+fulfillOrder Abstract 5            # Abstract not in assembly inventory
+fulfillOrder Arduous 0             # order with zero quantity
+fulfillOrder Arduous -11           # order with negative quantity
+empty Part                         # cannot empty a part
+empty Alexa                        # Alexa not in assembly inventory
+bork                               # illegal command
